@@ -27,15 +27,15 @@ exports.registerUser = async (req, res) => {
 
     await user.save();
 
-    // Send the OTP to the user's WhatsApp (You would need to implement this part)
-    // You can use a service like Twilio to send WhatsApp messages.
-
     res.status(201).json({ message: 'Registration successful' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
+
 
 // Handle file uploads (profile photo) using multer middleware
 exports.uploadProfilePhoto = async (req, res) => {
@@ -85,10 +85,12 @@ exports.loginUserWithOTP = async (req, res) => {
 
     // You can generate a JWT token for the user here if needed.
 
-    res.status(200).json({ message: 'Login successful' });
+    res.status(200).json({ message: 'Login successful', userId: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+
 

@@ -8,6 +8,7 @@ const typeRoutes = require('./routes/typeRoutes');
 const referralRoutes = require('./routes/referralRoutes');
 const notificationRoutes = require('./routes/notificationRoutes'); 
 const chatRoutes = require('./routes/chatRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -34,6 +35,7 @@ app.get('/', (req, res) => {
 
 
 // Routes
+app.use('/admin', adminRoutes);
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes); 
 app.use('/properties', propertyRoutes);
