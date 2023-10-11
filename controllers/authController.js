@@ -7,7 +7,6 @@ exports.registerUser = async (req, res) => {
   try {
     const { name, phone, location } = req.body;
 
-
     // Check if the phone number is already registered
     const existingUser = await User.findOne({ phone });
     if (existingUser) {
@@ -26,16 +25,17 @@ exports.registerUser = async (req, res) => {
       isVerified: true,
     });
 
-    console.log("user:", user)
-
+    // Save the user to the database
     await user.save();
 
-    res.status(201).json({ message: 'Registration successful' });
+    // Include the user ID in the response
+    res.status(201).json({ message: 'Registration successful', userId: user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 
 
