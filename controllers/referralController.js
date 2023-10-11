@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const config = require('../config/sequelize');
 const ReferralPoints = require('../models/referralPoints');
 const Property = require('../models/property');
 

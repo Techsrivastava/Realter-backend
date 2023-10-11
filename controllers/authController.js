@@ -1,4 +1,5 @@
 const User = require('../models/user');
+
 const generateOTP = require('../utils/generateOTP');
 const config = require('../config/multer');
 // Register a new user

@@ -1,4 +1,5 @@
 const Notification = require('../models/notification');
+const config = require('../config/sequelize');
 
 // Function to generate notifications when properties match
 async function generateNotifications() {

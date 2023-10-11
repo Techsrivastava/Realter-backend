@@ -7,12 +7,17 @@ const categoryRoutes = require('./routes/categoryRoutes');
 const typeRoutes = require('./routes/typeRoutes');
 const referralRoutes = require('./routes/referralRoutes');
 const notificationRoutes = require('./routes/notificationRoutes'); 
+const chatRoutes = require('./routes/chatRoutes');
 const cors = require('cors');
+const http = require('http');
+const socketIo = require('socket.io');
 
 const app = express();
 app.use(bodyParser.json());
 // Serve static files from the 'public' directory
 app.use( express.static('public'));
+const server = http.createServer(app);
+const io = socketIo(server);
 
 // Middleware
 app.use(express.json());
@@ -31,6 +36,9 @@ app.use('/categories', categoryRoutes);
 app.use('/types', typeRoutes); 
 app.use('/referral', referralRoutes); 
 app.use('/notifications', notificationRoutes);
+app.use('/chat', chatRoutes);
+
+
 
 // Start the server
 const port = process.env.PORT || 10000;
