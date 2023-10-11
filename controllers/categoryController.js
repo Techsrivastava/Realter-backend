@@ -38,6 +38,28 @@ function getCategoryById(req, res) {
     });
 }
 
+// Get category properties by ID
+function getCategoryPropertiesById(req, res) {
+  const categoryId = req.params.id;
+
+  Category.findById(categoryId)
+    .then((category) => {
+      if (!category) {
+        return res.status(404).json({ message: 'Category not found' });
+      }
+      // Respond with the category properties, including "description" or any other category-wise properties you want to include.
+      res.json({
+        name: category.name,
+        description: category.description,
+        // Add other category properties here as needed.
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({ error: err.message });
+    });
+}
+
+
 // Update a category by ID
 function updateCategory(req, res) {
   Category.findByIdAndUpdate(req.params.id, req.body, { new: true })
@@ -72,4 +94,5 @@ module.exports = {
   getCategoryById,
   updateCategory,
   deleteCategory,
+  getCategoryPropertiesById
 };
