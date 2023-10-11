@@ -85,7 +85,7 @@ exports.loginUserWithOTP = async (req, res) => {
 
     // You can generate a JWT token for the user here if needed.
 
-    res.status(200).json({ message: 'Login successful', userId: user._id });
+    res.status(200).json({ message: 'Login successful', "userId": user._id });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
