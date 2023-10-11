@@ -16,7 +16,7 @@ exports.registerUser = async (req, res) => {
     // Generate an OTP
     const otp = generateOTP();
 
-    // Save the user to the database with the generated OTP
+    // Create a new user object
     const user = new User({
       name,
       phone,
@@ -35,6 +35,7 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 
 
