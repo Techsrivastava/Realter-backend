@@ -10,6 +10,9 @@ router.post('/post/user/:userId', propertyController.createPropertyForUser);
 // Get all properties
 router.get('/', propertyController.getAllProperties);
 
+// Get properties by category
+router.get('/:category', propertyController.getPropertiesByCategory);
+
 // Get a property by ID
 router.get('/:id', propertyController.getPropertyById);
 

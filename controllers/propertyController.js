@@ -146,10 +146,31 @@ function deleteProperty(req, res) {
     });
 }
 
+// Get properties by category
+function getPropertiesByCategory(req, res) {
+  const category = req.params.category;
+
+  Property.find({ category: category })
+    .then((properties) => {
+      if (properties.length === 0) {
+        console.log(`No properties found in the category: ${category}`);
+        res.status(404).json({ message: 'No properties found in the specified category.' });
+      } else {
+        res.json(properties);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    });
+}
+
+
 module.exports = {
   createProperty,
   createPropertyForUser,
   getAllProperties,
+  getPropertiesByCategory,
   getPropertyById,
   updateProperty,
   deleteProperty,
