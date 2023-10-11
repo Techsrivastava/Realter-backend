@@ -1,0 +1,24 @@
+# Node.js
+node_modules/
+
+# Logs
+logs
+*.log
+
+# Dependency directory
+vendor/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional Sublime Text directory
+.svn
+
+# Mac files
+.DS_Store
+
+# Visual Studio Code
+.vscode/
