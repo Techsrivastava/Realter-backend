@@ -7,6 +7,7 @@ exports.registerUser = async (req, res) => {
   try {
     const { name, phone, location } = req.body;
 
+
     // Check if the phone number is already registered
     const existingUser = await User.findOne({ phone });
     if (existingUser) {
@@ -24,6 +25,8 @@ exports.registerUser = async (req, res) => {
       otp,
       isVerified: true,
     });
+
+    console.log("user:", user)
 
     await user.save();
 

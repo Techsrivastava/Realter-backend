@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
   name: String,
-  phone: { type: String},// Add the phone field with the unique option
+  phone: { type: String, require: true, index:true, unique:true,sparse:true},// Add the phone field with the unique option
   location: String,
   profilePhoto: String,
   otp: String,

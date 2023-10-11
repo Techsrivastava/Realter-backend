@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://adarsh00761:WDdQBfS2YEbQvAbB@cluster0.9fzy8t2.mongodb.net/?retryWrites=true&w=majority/get121', {
+mongoose.connect('mongodb+srv://adarsh00761:4JIwxX3JBQny5uVB@cluster0.l3cqhay.mongodb.net/?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   writeConcern: { w: 'majority' }, 
