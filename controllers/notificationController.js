@@ -1,20 +1,51 @@
 const Notification = require('../models/notification');
+const Property = require('../models/property'); // Assuming you have a Property model
 const config = require('../config/sequelize');
 
 // Function to generate notifications when properties match
 async function generateNotifications() {
-  // Logic to find matching properties based on criteria (e.g., city, size, price, payment mode)
-  const matchingProperties = await findMatchingProperties();
+  try {
+    // Retrieve all properties from the database
+    const properties = await Property.find();
 
-  // Generate notifications for matched properties and users
-  matchingProperties.forEach(async (matchingProperty) => {
-    const user1 = matchingProperty.user; // User who posted the matching property
-    const user2 = matchingProperty.matchedWithUser; // Other user who posted a matching property
+    // Iterate through each property to check for matches
+    for (const property of properties) {
+      // Logic to find matching properties based on criteria (e.g., city, size, price, payment mode)
+      const matchingProperties = await findMatchingProperties(property);
 
-    // Create notifications for both users
-    await createNotification(user1, matchingProperty);
-    await createNotification(user2, matchingProperty);
-  });
+      // Generate notifications for matched properties and users
+      for (const matchingProperty of matchingProperties) {
+        const user1 = property.user; // User who posted the property
+        const user2 = matchingProperty.user; // User who posted the matching property
+
+        // Create notifications for both users
+        await createNotification(user1, matchingProperty);
+        await createNotification(user2, property);
+      }
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// Function to find matching properties based on criteria
+async function findMatchingProperties(property) {
+  // Define your criteria for matching properties here, e.g., based on city, size, price, payment mode
+  const criteria = {
+    city: property.city,
+    size: property.size,
+    price: property.price,
+    paymentMode: property.paymentMode,
+    type: property.type,
+    amenities: property.amenities,
+    category: property.category,
+    
+  };
+
+  // Use these criteria to find matching properties in the database
+  const matchingProperties = await Property.find(criteria);
+
+  return matchingProperties;
 }
 
 // Function to create a notification
