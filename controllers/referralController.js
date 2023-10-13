@@ -84,8 +84,42 @@ function listReferralPoints(req, res) {
     });
 }
 
+/// Get referral points transactions by user ID
+// Get referral points transactions by user ID
+function getReferralPointsByUser(req, res) {
+  const { userId } = req.params;
+
+  ReferralPoints.find({ user: userId })
+    .then((transactions) => {
+      if (transactions.length === 0) {
+        console.log(`No referral points transactions found for the user with ID: ${userId}`);
+        res.status(200).json({ message: 'No referral points transactions found for the specified user.' });
+      } else {
+        // Map transactions to the desired format
+        const formattedTransactions = transactions.map(transaction => ({
+          
+          points: transaction.points
+         
+         
+         
+        }));
+        res.json(formattedTransactions);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    });
+}
+
+
+
 module.exports = {
   earnReferralPoints,
   redeemReferralPoints,
   listReferralPoints,
+  getReferralPointsByUser, // Add the new function to the exports
 };
+
+
+
