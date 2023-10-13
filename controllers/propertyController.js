@@ -174,7 +174,7 @@ function getPropertiesByUser(req, res) {
     .then((properties) => {
       if (properties.length === 0) {
         console.log(`No properties found for the user with ID: ${userId}`);
-        res.status(404).json({ message: 'No properties found for the specified user.' });
+        res.status(404).json({ message: 'No properties found for the specified user.', properties });
       } else {
         res.json(properties);
       }
