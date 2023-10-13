@@ -154,7 +154,7 @@ function getPropertiesByCategory(req, res) {
     .then((properties) => {
       if (properties.length === 0) {
         console.log(`No properties found in the category: ${category}`);
-        res.status(404).json({ message: 'No properties found in the specified category.' });
+        res.status(200).json({ message: 'No properties found in the specified category.: ', properties });
       } else {
         res.json(properties);
       }
