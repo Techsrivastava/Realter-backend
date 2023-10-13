@@ -14,4 +14,7 @@ router.get('/transactions', referralController.listReferralPoints);
 // Get referral points transactions by user ID
 router.get('/users/:userId/', referralController.getReferralPointsByUser);
 
+// Get redemption transactions by user ID
+router.get('/users/redeem/:userId/', referralController.getRedemptionByUser); // New route for redemption transactions
+
 module.exports = router;

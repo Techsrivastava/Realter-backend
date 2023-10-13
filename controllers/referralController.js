@@ -112,14 +112,45 @@ function getReferralPointsByUser(req, res) {
     });
 }
 
+// Get redemption transactions by user ID
+function getRedemptionByUser(req, res) {
+  const { userId } = req.params;
 
+  ReferralPoints.find({ user: userId, earned: true }) // Filter for redemption transactions
+    .then((redemptionTransactions) => {
+      if (redemptionTransactions.length === 0) {
+        console.log(`No redemption transactions found for the user with ID: ${userId}`);
+        res.status(200).json({ message: 'No redemption transactions found for the specified user.',  });
+      } else {
+        // Map redemption transactions to the desired format
+        const formattedRedemptionTransactions = redemptionTransactions.map(transaction => ({
+          _id: transaction._id,
+          points: transaction.points,
+          earned: transaction.earned,
+          date: transaction.date,
+          __v: transaction.__v,
+        }));
+        res.json(formattedRedemptionTransactions);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    });
+}
 
 module.exports = {
   earnReferralPoints,
   redeemReferralPoints,
   listReferralPoints,
-  getReferralPointsByUser, // Add the new function to the exports
+  getReferralPointsByUser,
+  getRedemptionByUser, // Add the new function to the exports
 };
+
+
+
+
+
 
 
 
