@@ -165,6 +165,26 @@ function getPropertiesByCategory(req, res) {
     });
 }
 
+function getPropertiesByUser(req, res) {
+  const { userId } = req.params;
+
+  Property.find({ user: userId })
+    .populate('category type')
+    .exec()
+    .then((properties) => {
+      if (properties.length === 0) {
+        console.log(`No properties found for the user with ID: ${userId}`);
+        res.status(404).json({ message: 'No properties found for the specified user.' });
+      } else {
+        res.json(properties);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.message });
+    });
+}
+
 
 module.exports = {
   createProperty,
@@ -176,5 +196,6 @@ module.exports = {
   deleteProperty,
   createAmenities,
   updateAmenities,
-  deleteAmenities
+  deleteAmenities,
+  getPropertiesByUser
 };

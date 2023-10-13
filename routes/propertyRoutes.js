@@ -31,5 +31,8 @@ router.put('/amenities', propertyController.updateAmenities);
 // Delete amenities for a property
 router.delete('/amenities/:propertyId/:amenityId', propertyController.deleteAmenities);
 
+// Get properties by a specific user
+router.get('/users/:userId/properties', propertyController.getPropertiesByUser);
+
 
 module.exports = router;
