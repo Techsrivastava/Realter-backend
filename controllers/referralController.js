@@ -84,7 +84,7 @@ function listReferralPoints(req, res) {
     });
 }
 
-/// Get referral points transactions by user ID
+ 
 // Get referral points transactions by user ID
 function getReferralPointsByUser(req, res) {
   const { userId } = req.params;
