@@ -17,7 +17,9 @@ const path = require('path');
 const app = express();
 app.use(bodyParser.json());
 // Serve static files from the 'public' directory
-app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'), {
+  maxAge: 31536000, // 1 year (adjust as needed)
+}));
 
 const server = http.createServer(app);
 const io = socketIo(server);
