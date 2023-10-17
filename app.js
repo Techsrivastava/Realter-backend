@@ -22,7 +22,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'), {
 }));
 
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = require('./socket').init(server);
+
 
 // Middleware
 app.use(express.json());
@@ -30,6 +31,12 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
+
+// Initialize your Socket.IO instance with the server
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  // Add your Socket.IO event handlers here
+});
 
 app.get('/', (req, res) => {
   res.send('Server is Working!');

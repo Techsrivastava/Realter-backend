@@ -1,11 +1,11 @@
 const Notification = require('../models/notification');
 const Property = require('../models/property'); // Assuming you have a Property model
 const config = require('../config/sequelize');
+const io = require('../socket');
+
 
 // Function to generate notifications when properties match
-async function generateNotifications(req, res) {
-  const userId = req.params.userId; // Access the user ID from the URL
-
+async function generateNotifications(userId) {
   try {
     // Retrieve the properties of the specified user from the database
     const userProperties = await Property.find({ user: userId });
@@ -52,6 +52,13 @@ async function generateNotifications(req, res) {
             result[userId] = [];
           }
           result[userId].push({ matchingProperty, message: matchedPropertyMessage });
+          
+          // Emit a Socket.IO 'match' event to notify both users about the match
+          io.getIO().emit('match', {
+            userId: userId,
+            matchingUserId: matchingProperty.user,
+            message: matchedPropertyMessage,
+          });
         }
       }
 
@@ -78,18 +85,12 @@ async function generateNotifications(req, res) {
       result = [];
     }
 
-    // Respond with the result
-    res.status(200).json(result);
+    return result;
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: error.message });
+    throw error;
   }
 }
-
-
-
-
-
 
 
 
@@ -122,8 +123,8 @@ async function getUserNotifications(req, res) {
 // Other notification-related functions...
 
 module.exports = {
-  generateNotifications,
-  
   getUserNotifications,
+  generateNotifications
+
   // Other functions...
 };
