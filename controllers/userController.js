@@ -63,6 +63,11 @@ exports.uploadProfilePhoto = async (req, res) => {
 exports.getUser = async (req, res) => {
   try {
     const userId = req.params.userId;
+
+    if (!userId) {
+      return res.status(400).json({ message: 'User ID is required' });
+    }
+
     const user = await User.findById(userId);
 
     if (!user) {
@@ -75,6 +80,7 @@ exports.getUser = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 // Get all users
 exports.getAllUsers = async (req, res) => {
