@@ -3,6 +3,7 @@ const router = express.Router();
 const multer = require('multer');
 const path = require('path');
 
+// Configure multer to specify where and how to store uploaded files
 const storage = multer.diskStorage({
   destination: './public/uploads/',
   filename: function (req, file, cb) {
@@ -14,6 +15,8 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({ storage });
+
+
 
 const { getUser, getAllUsers, uploadProfilePhoto } = require('../controllers/userController');
 
