@@ -12,11 +12,13 @@ const adminRoutes = require('./routes/adminRoutes');
 const cors = require('cors');
 const http = require('http');
 const socketIo = require('socket.io');
+const path = require('path');
 
 const app = express();
 app.use(bodyParser.json());
 // Serve static files from the 'public' directory
-app.use( express.static('public'));
+app.use('/uploads', express.static(path.join(__dirname, 'public/uploads')));
+
 const server = http.createServer(app);
 const io = socketIo(server);
 
