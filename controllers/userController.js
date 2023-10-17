@@ -45,9 +45,13 @@ exports.uploadProfilePhoto = async (req, res) => {
     user.profilePhoto = filename;
     await user.save();
 
+    // Construct the URL for the profile photo based on your server configuration
+    const baseUrl = 'https://realter-backend.onrender.com/'; // Replace with your server's base URL
+    const profilePhotoUrl = `${baseUrl}/uploads/${filename}`; // Adjust the path as per your file storage setup
+
     console.log(`Profile photo saved for user ID ${userId}, filename: ${filename}`);
 
-    res.status(200).json({ message: 'Profile photo uploaded', filename });
+    res.status(200).json({ message: 'Profile photo uploaded', profilePhotoUrl });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: 'Internal server error' });
