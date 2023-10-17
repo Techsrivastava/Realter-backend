@@ -91,36 +91,10 @@ async function generateNotifications(req, res) {
 
 
 
-// Function to find matching properties based on criteria
-async function findMatchingProperties(property) {
-  // Define your criteria for matching properties here, e.g., based on city, size, price, payment mode
-  const criteria = {
-    city: property.city,
-    size: property.size,
-    price: property.price,
-    paymentMode: property.paymentMode,
-    type: property.type,
-    amenities: property.amenities,
-    category: property.category,
-    
-  };
 
-  // Use these criteria to find matching properties in the database
-  const matchingProperties = await Property.find(criteria);
 
-  return matchingProperties;
-}
 
-// Function to create a notification
-// async function createNotification(userId, matchingProperty) {
-//   const notification = new Notification({
-//     user: userId,
-//     matchedProperty: matchingProperty._id,
-//     message: 'Your property matches with another user\'s property.',
-//   });
 
-//   await notification.save();
-// }
 
 // Function to retrieve notifications for a user
 async function getUserNotifications(req, res) {
