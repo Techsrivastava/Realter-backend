@@ -93,7 +93,7 @@ function getReferralPointsByUser(req, res) {
     .then((transactions) => {
       if (transactions.length === 0) {
         console.log(`No referral points transactions found for the user with ID: ${userId}`);
-        res.status(200).json({ message: 'No referral points transactions found for the specified user.' });
+        res.status(200).json({ message: 'No referral points transactions found for the specified user.' ,transactions: []});
       } else {
         // Map transactions to the desired format
         const formattedTransactions = transactions.map(transaction => ({
@@ -120,7 +120,7 @@ function getRedemptionByUser(req, res) {
     .then((redemptionTransactions) => {
       if (redemptionTransactions.length === 0) {
         console.log(`No redemption transactions found for the user with ID: ${userId}`);
-        res.status(200).json({ message: 'No redemption transactions found for the specified user.',  });
+        res.status(200).json({ message: 'No redemption transactions found for the specified user.', transactions: [] });
       } else {
         // Map redemption transactions to the desired format
         const formattedRedemptionTransactions = redemptionTransactions.map(transaction => ({
