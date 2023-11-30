@@ -1,5 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const http = require('http'); 
+const socketIo = require('socket.io');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
 const propertyRoutes = require('./routes/propertyRoutes');
@@ -10,8 +12,7 @@ const notificationRoutes = require('./routes/notificationRoutes');
 const chatRoutes = require('./routes/chatRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cors = require('cors');
-const http = require('http');
-const socketIo = require('socket.io');
+
 const path = require('path');
 
 const app = express();
@@ -22,7 +23,24 @@ app.use('/uploads', express.static(path.join(__dirname, 'public/uploads'), {
 }));
 
 const server = http.createServer(app);
-const io = require('./socket').init(server);
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+  console.log('A user connected');
+
+  // Handle the 'match' event
+  socket.on('match', (data) => {
+    // Handle the event here
+    // Example: emit a 'notification' event to all connected clients
+    io.emit('notification', 'A property match was found!');
+  });
+
+  // Handle other events as needed
+
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
+});
 
 
 // Middleware
@@ -32,11 +50,7 @@ app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 
-// Initialize your Socket.IO instance with the server
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  // Add your Socket.IO event handlers here
-});
+
 
 app.get('/', (req, res) => {
   res.send('Server is Working!');

@@ -113,7 +113,7 @@ async function getUserNotifications(req, res) {
       console.log(`  Matched Property: ${notification.matchedProperty._id}`);
     });
 
-    // Send the retrieved notifications as a response
+    // Send the retrieved notifications as a response:smiley::smiley:
     res.json(notifications);
   } catch (error) {
     res.status(500).json({ error: error.message });
